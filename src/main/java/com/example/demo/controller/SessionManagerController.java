@@ -63,14 +63,14 @@ public class SessionManagerController {
     }
 
     @PostMapping("/submit")
-    public ResponseEntity<LunchSession> submitSession(@RequestBody @Valid String sessionId, @Valid String user, @Valid String restaurant) throws SessionNotFoundException {
-        LunchSession lunchSession = sessionManagerService.submitRestaurant(sessionId, user, restaurant);
+    public ResponseEntity<LunchSession> submitSession(@RequestBody @Valid RequestDTO req) throws SessionNotFoundException {
+        LunchSession lunchSession = sessionManagerService.submitRestaurant(req.sessionId, req.user, req.restaurant);
         return new ResponseEntity<>(lunchSession, HttpStatus.CREATED);
     }
 
     @PostMapping("/end")
-    public ResponseEntity<Restaurant> endSession(@RequestBody @Valid String sessionId, @Valid String user) throws IllegalStateException, UnSupportedAccessException {
-        Restaurant restaurant = sessionManagerService.endSession(sessionId, user);
+    public ResponseEntity<Restaurant> endSession(@RequestBody @Valid RequestDTO req) throws IllegalStateException, UnSupportedAccessException {
+        Restaurant restaurant = sessionManagerService.endSession(req.sessionId, req.user);
         return new ResponseEntity<>(restaurant, HttpStatus.CREATED);
     }
 
